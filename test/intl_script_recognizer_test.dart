@@ -66,7 +66,8 @@ void main() {
                 const Locale.fromSubtags(
                     languageCode: "zh", scriptCode: "Hant"),
                 DateFormat.yMMMMd)
-            .add_E().format(DateTime(2020, 1, 1)),
+            .add_E()
+            .format(DateTime(2020, 1, 1)),
         "2020年1月1日 週三");
   });
 }

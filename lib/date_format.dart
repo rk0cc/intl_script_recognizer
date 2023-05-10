@@ -16,7 +16,7 @@ extension DateFormatRecognizerExtension on IntlScriptRecognizer {
 
   /// Construct a new [DateFormat] with pre-defined format factory
   /// [Function] like below:
-  /// 
+  ///
   /// ```dart
   /// final preDefDFStr = IntlScriptRecognizer()
   ///   .constructDateFormatWithPattern(const Locale("zh", "Hant"), DateFormat.yMMMMd)
