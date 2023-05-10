@@ -2,7 +2,8 @@ name: intl_script_recognizer
 description: Handle the Locale which offer script language only to corresponded region code in intl package
 version: 1.0.0
 repository: https://github.com/rk0cc/intl_script_recognizer
-funding: https://github.com/sponsors/rk0cc
+funding:
+  - https://github.com/sponsors/rk0cc
 environment:
   sdk: '>=2.19.6 <3.0.0'
   flutter: ">=3.7.12"
