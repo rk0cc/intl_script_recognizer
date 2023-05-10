@@ -1,5 +1,14 @@
 # An adapter helps `intl` package recognize correct language when `Locale` specified script language
 
+---
+
+<p align="center">
+    <img src="https://img.shields.io/pub/v/intl_script_recognizer?color=%2333FF33&label=Latest%20version%3A&style=flat-square" alt="Pub version"/>
+    <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/rk0cc?color=%2333FF33&style=flat-square">
+</p>
+
+---
+
 The pattern of locale for [intl package](https://pub.dev/packages/intl) is `(language)_(COUNTRY)` only.
 However, Flutter's [Locale](https://api.flutter.dev/flutter/dart-ui/Locale-class.html) format is
 `(language)_(Script)_(COUNTRY)` which triggered fallback to `(language)` only. Therefore, this package
