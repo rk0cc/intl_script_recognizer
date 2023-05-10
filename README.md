@@ -3,8 +3,8 @@
 ---
 
 <p align="center">
-    <img src="https://img.shields.io/pub/v/intl_script_recognizer?color=%2333FF33&label=Latest%20version%3A&style=flat-square" alt="Pub version"/>
-    <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/rk0cc?color=%2333FF33&style=flat-square">
+    <a href="https://pub.dev/packages/intl_script_recognizer"><img src="https://img.shields.io/pub/v/intl_script_recognizer?color=%2333FF33&label=Latest%20version%3A&style=flat-square" alt="Pub version"/></a>
+    <a href="https://github.com/sponsors/rk0cc"><img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/rk0cc?color=%2333FF33&style=flat-square"></a>
 </p>
 
 ---
