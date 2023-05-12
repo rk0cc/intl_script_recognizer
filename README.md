@@ -20,7 +20,7 @@ aims to handle correct language system by define country code with corresponded 
 Install `intl` and this package by using command:
 
 ```bash
-flutter pub  intl intl_script_recognizer
+flutter pub add intl intl_script_recognizer
 ```
 
 or modify `dependencies` in `pubspec.yaml` directly:
