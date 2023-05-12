@@ -28,7 +28,7 @@ or modify `dependencies` in `pubspec.yaml` directly:
 # pubspec.yaml
 depencencies:
     intl: any
-    intl_script_recognizer: ^1.0.0
+    intl_script_recognizer: ^1.0.0  # ^2.0.0 if using Dart 3 or above
 ```
 
 Then, import dependencies into your project:

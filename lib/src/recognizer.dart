@@ -15,7 +15,7 @@ import 'package:country_code/country_code.dart';
 ///
 /// By default, it mapped Traditional Chinese (`zh_Hant`) to `intl`'s
 /// recognizable locale [String] : `zh_TW` already.
-class IntlScriptRecognizer {
+final class IntlScriptRecognizer {
   static IntlScriptRecognizer? _instance;
 
   final HashMap<Locale, String> _localCountryMapper = HashMap();
