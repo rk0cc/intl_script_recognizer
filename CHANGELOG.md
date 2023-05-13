@@ -1,4 +1,4 @@
-## 2.0.0+1
+## 2.0.1
 
 * Remove platform file which unnecessary for package
 
