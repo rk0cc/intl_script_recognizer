@@ -1,3 +1,7 @@
+## 2.0.0+1
+
+* Remove platform file which unnecessary for package
+
 ## 2.0.0
 
 * Using Dart 3's syntax
