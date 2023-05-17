@@ -1,3 +1,7 @@
+## 2.0.2
+
+Apply `intl` version constrain to `any` which avoid resolve error.
+
 ## 2.0.1
 
 * Remove platform file which unnecessary for package
