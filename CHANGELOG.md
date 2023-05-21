@@ -1,3 +1,8 @@
+## 2.0.3
+
+* Integrated country code as a string set internally.
+* Remove unused dependencies.
+
 ## 2.0.2
 
 Apply `intl` version constrain to `any` which avoid resolve error.
