@@ -17,6 +17,15 @@ aims to handle correct language system by define country code with corresponded 
 
 ## Get started
 
+### Before start
+
+The future release in major version number of this package will depend on the latest major version of Dart and Flutter SDK.
+It may rewrite new syntax to satisify use case which no longer compatable for older release one.
+
+**To avoid this issue, you may required to run `flutter upgrade` before install it.**
+
+### Install
+
 Install `intl` and this package by using command:
 
 ```bash
@@ -29,7 +38,7 @@ or modify `dependencies` in `pubspec.yaml` directly:
 # pubspec.yaml
 depencencies:
     intl: any
-    intl_script_recognizer: ^1.0.0  # ^2.0.0 if using Dart 3 or above
+    intl_script_recognizer: ^2.0.2
 ```
 
 Then, import dependencies into your project:
@@ -44,6 +53,10 @@ If `DateFormat` is required, it is highly recommended to import date format exte
 ```dart
 import 'package:intl_script_recognizer/date_format.dart';
 ```
+
+By default, `IntlScriptRecognizer` will recognized "Traditional Chinese" (`zh_Hant`) to "Chinese (Taiwan)" (`zh_TW`) once the
+instance has been created. If you preferred to uses another country or region's varient (in this case, Hong Kong), it is possible
+to override assigned record by activating `replaceExisted` like [example](https://github.com/rk0cc/intl_script_recognizer/blob/main/example/main.dart).
 
 ## License
 
