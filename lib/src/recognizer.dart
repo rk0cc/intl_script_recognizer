@@ -16,6 +16,8 @@ import 'dart:ui' show Locale;
 final class IntlScriptRecognizer {
   static IntlScriptRecognizer? _instance;
 
+  Set<String> _customRegion = {};
+
   final HashMap<Locale, String> _localCountryMapper = HashMap();
 
   /// Return current instance of [IntlScriptRecognizer]. For no
@@ -51,6 +53,42 @@ final class IntlScriptRecognizer {
     });
   }
 
+  /// Define custom country code which may not recognized as country code yet or
+  /// using as testing purpose.
+  /// 
+  /// [customRegion] can be `null` or a [Set] of [String] which contains
+  /// two capital letter to satisify [ISO 3166](https://www.iso.org/iso-3166-country-codes.html)
+  /// alpha-2 standard.
+  /// 
+  /// Applying empty [Set] into [customRegion] will throws [ArgumentError], and [FormatException]
+  /// if does not obey the format of country code.
+  /// 
+  /// When [customRegion] contains country code that it defined in ISO 3166 already,
+  /// the duplicated country codes will be excluded.
+  /// 
+  /// The applied [customRegion] belongs with current instance only which 
+  /// will be purged once [factoryReset] called.
+  void applyCustomRegion(Set<String>? customRegion) {
+    if (customRegion != null) {
+      if (customRegion.isEmpty) {
+        throw ArgumentError.value(customRegion, "customRegion",
+            "It must be either `null` or non-empty set of string");
+      }
+
+      final invalidCode = customRegion
+          .where((element) => !RegExp(r"^[A-Z]{2}$").hasMatch(element));
+      if (invalidCode.isNotEmpty) {
+        throw FormatException(
+            "The country code should be 2 captical letter in a single string",
+            invalidCode.toSet());
+      }
+
+      _customRegion = Set<String>.from(customRegion).difference(_countryCode);
+    } else {
+      _customRegion = <String>{};
+    }
+  }
+
   /// Assign the [Map] of [applyContent] which contains [Locale] with script code
   /// only as a key and a [String] of country code as value.
   ///
@@ -70,7 +108,7 @@ final class IntlScriptRecognizer {
       throw ArgumentError(
           "The Locale object must provide script code and do not apply country code.");
     } else if (cloneAC.values
-        .any((element) => !_countryCode.contains(element))) {
+        .any((element) => !{..._countryCode, ..._customRegion}.contains(element))) {
       throw ArgumentError(
           "At least one of the country codes is invalid and unable to resolved.");
     }

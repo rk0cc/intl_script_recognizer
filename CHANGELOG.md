@@ -1,6 +1,7 @@
-## 2.0.4
+## 2.1.0
 
 * Add topics in pubspec files
+* Allows to implement custom country code in [ISO 3166](https://www.iso.org/iso-3166-country-codes.html) alpla-2 standard.
 
 ## 2.0.3
 
