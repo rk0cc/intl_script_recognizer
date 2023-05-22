@@ -1,3 +1,7 @@
+## 2.0.4
+
+* Add topics in pubspec files
+
 ## 2.0.3
 
 * Integrated country code as a string set internally.

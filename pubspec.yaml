@@ -1,7 +1,10 @@
 name: intl_script_recognizer
 description: Handle the Locale which offer script language only to corresponded region code in intl package
-version: 2.0.3
+version: 2.0.4
 repository: https://github.com/rk0cc/intl_script_recognizer
+topics:
+  - intl
+  - Locale
 funding:
   - https://github.com/sponsors/rk0cc
 environment:
