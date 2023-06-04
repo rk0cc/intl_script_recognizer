@@ -38,7 +38,7 @@ or modify `dependencies` in `pubspec.yaml` directly:
 # pubspec.yaml
 depencencies:
     intl: any
-    intl_script_recognizer: ^2.0.2
+    intl_script_recognizer: ^2.2.0
 ```
 
 Then, import dependencies into your project:

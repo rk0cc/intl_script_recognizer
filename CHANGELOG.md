@@ -1,3 +1,7 @@
+## 2.2.0
+
+* Add functions that can be applied from `BuildContext` directly.
+
 ## 2.1.0
 
 * Add topics in pubspec files

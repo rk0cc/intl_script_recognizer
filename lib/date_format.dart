@@ -1,15 +1,17 @@
 /// An extension library for processing [IntlScriptRecognizer] with [DateFormat].
 library date_format;
 
-import 'dart:ui';
-
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import 'src/recognizer.dart';
 
+/// Factory method from [DateFormat] that using pre-defined pattern.
+typedef DateFormatPatternFactory = DateFormat Function(dynamic locale);
+
 /// An extension for parsing [DateFormat] in [IntlScriptRecognizer].
 extension DateFormatRecognizerExtension on IntlScriptRecognizer {
-  /// Construct a new [DateFormat] by given [locale] and [newPattern].
+  /// Construct [DateFormat.new] by given [locale] and [newPattern].
   DateFormat constructDateFormat(Locale? locale, [String? newPattern]) {
     return DateFormat(newPattern, resolve(locale));
   }
@@ -23,7 +25,18 @@ extension DateFormatRecognizerExtension on IntlScriptRecognizer {
   ///   .format(DateTime.now())
   /// ```
   DateFormat constructDateFormatWithPattern(
-      Locale? locale, DateFormat Function(String? formatted) patternFactory) {
+      Locale? locale, DateFormatPatternFactory patternFactory) {
     return patternFactory(resolve(locale));
+  }
+
+  /// Construct [DateFormat.new] with [resolveFromContext].
+  DateFormat dateFormatFromContext(BuildContext context, [String? newPattern]) {
+    return DateFormat(newPattern, resolveFromContext(context));
+  }
+
+  /// Construct [DateFormat] with pre-defined pattern.
+  DateFormat dateFormatWithPatternFromContext(
+      BuildContext context, DateFormatPatternFactory patternFactory) {
+    return patternFactory(resolveFromContext(context));
   }
 }

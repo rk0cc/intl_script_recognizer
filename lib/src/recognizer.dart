@@ -1,5 +1,6 @@
 import 'dart:collection';
-import 'dart:ui' show Locale;
+
+import 'package:flutter/widgets.dart';
 
 /// Recognize the correct language on `intl` package when [Locale]
 /// object offered [Locale.languageCode] and [Locale.scriptCode] only.
@@ -55,18 +56,18 @@ final class IntlScriptRecognizer {
 
   /// Define custom country code which may not recognized as country code yet or
   /// using as testing purpose.
-  /// 
+  ///
   /// [customRegion] can be `null` or a [Set] of [String] which contains
   /// two capital letter to satisify [ISO 3166](https://www.iso.org/iso-3166-country-codes.html)
   /// alpha-2 standard.
-  /// 
+  ///
   /// Applying empty [Set] into [customRegion] will throws [ArgumentError], and [FormatException]
   /// if does not obey the format of country code.
-  /// 
+  ///
   /// When [customRegion] contains country code that it defined in ISO 3166 already,
   /// the duplicated country codes will be excluded.
-  /// 
-  /// The applied [customRegion] belongs with current instance only which 
+  ///
+  /// The applied [customRegion] belongs with current instance only which
   /// will be purged once [factoryReset] called.
   void applyCustomRegion(Set<String>? customRegion) {
     if (customRegion != null) {
@@ -107,8 +108,8 @@ final class IntlScriptRecognizer {
         element.countryCode != null || element.scriptCode == null)) {
       throw ArgumentError(
           "The Locale object must provide script code and do not apply country code.");
-    } else if (cloneAC.values
-        .any((element) => !{..._countryCode, ..._customRegion}.contains(element))) {
+    } else if (cloneAC.values.any(
+        (element) => !{..._countryCode, ..._customRegion}.contains(element))) {
       throw ArgumentError(
           "At least one of the country codes is invalid and unable to resolved.");
     }
@@ -167,6 +168,11 @@ final class IntlScriptRecognizer {
     }
 
     return buf.toString();
+  }
+
+  /// Perform [resolve] from [Localizations.maybeLocaleOf].
+  String? resolveFromContext(BuildContext context) {
+    return resolve(Localizations.maybeLocaleOf(context));
   }
 }
 
