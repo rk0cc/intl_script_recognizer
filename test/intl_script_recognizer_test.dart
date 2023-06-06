@@ -70,4 +70,9 @@ void main() {
             .format(DateTime(2020, 1, 1)),
         "2020年1月1日 週三");
   });
+
+  test("Forbid apply custom region method for delicated implementation", () {
+    final delicated = IntlScriptRecognizer.delicated();
+    expect(() => delicated.applyCustomRegion({"XX"}), throwsUnsupportedError);
+  });
 }
