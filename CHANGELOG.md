@@ -1,3 +1,7 @@
+## 2.3.0
+
+* Added delicated constructor which does not store instance.
+
 ## 2.2.0
 
 * Add functions that can be applied from `BuildContext` directly.
