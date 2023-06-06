@@ -21,8 +21,11 @@ final class IntlScriptRecognizer {
 
   final HashMap<Locale, String> _localCountryMapper = HashMap();
 
-  /// Return current instance of [IntlScriptRecognizer]. For no
+  /// Return current instance of [IntlScriptRecognizer]. If no
   /// instance created yet, it will construct a new instance first.
+  ///
+  /// This factory is designed for app implementation in global
+  /// scope that all applied preference can be reused.
   factory IntlScriptRecognizer() {
     if (_instance == null) {
       _newInstance();
@@ -31,27 +34,57 @@ final class IntlScriptRecognizer {
     return _instance!;
   }
 
+  /// Construct a delicated [IntlScriptRecognizer] that it no longer memorize
+  /// instance and return current instance by calling [IntlScriptRecognizer.new].
+  ///
+  /// The [customRegion] must be defined in construction and [applyCustomRegion]
+  /// will be disabled and throw [UnsupportedError].
+  ///
+  /// The delicated [IntlScriptRecognizer] is mainly for package which
+  /// depending on this package that preventing implementer can be apply globally.
+  factory IntlScriptRecognizer.delicated({Set<String> customRegion}) =
+      _DelicatedIntlScriptRecognizer;
+
   /// A last resort [Function] that construct a new instance and replace
   /// the current one which remains default setting only.
   ///
   /// This method should be called after invoking [IntlScriptRecognizer.new]
   /// and throws [StateError] if no instance created yet.
+  /// 
+  /// It only affected from [IntlScriptRecognizer.new]. And any from
+  /// [IntlScriptRecognizer.delicated] will no affected since they no
+  /// longer store instance once they constructed.
   static void factoryReset() {
     if (_instance != null) {
-      _instance = IntlScriptRecognizer._();
+      _newInstance();
     } else {
       throw StateError("No instance created yet");
     }
   }
 
+  /// Create new instance, assign and ready to uses.
   static void _newInstance() {
     _instance = IntlScriptRecognizer._();
   }
 
+  /// Constructor of [IntlScriptRecognizer] with default preference in
+  /// Traditional Chinese.
   IntlScriptRecognizer._() {
     assign({
       const Locale.fromSubtags(languageCode: "zh", scriptCode: "Hant"): "TW"
     });
+  }
+
+  void _customRegionApplier(Set<String> customRegion) {
+    final invalidCode = customRegion
+        .where((element) => !RegExp(r"^[A-Z]{2}$").hasMatch(element));
+    if (invalidCode.isNotEmpty) {
+      throw FormatException(
+          "The country code should be 2 captical letter in a single string",
+          invalidCode.toSet());
+    }
+
+    _customRegion = Set<String>.from(customRegion).difference(_countryCode);
   }
 
   /// Define custom country code which may not recognized as country code yet or
@@ -69,6 +102,9 @@ final class IntlScriptRecognizer {
   ///
   /// The applied [customRegion] belongs with current instance only which
   /// will be purged once [factoryReset] called.
+  ///
+  /// This method does not allows for [IntlScriptRecognizer.delicated] to prevent unwanted
+  /// modification that [UnsupportedError] will be thrown if called.
   void applyCustomRegion(Set<String>? customRegion) {
     if (customRegion != null) {
       if (customRegion.isEmpty) {
@@ -76,15 +112,7 @@ final class IntlScriptRecognizer {
             "It must be either `null` or non-empty set of string");
       }
 
-      final invalidCode = customRegion
-          .where((element) => !RegExp(r"^[A-Z]{2}$").hasMatch(element));
-      if (invalidCode.isNotEmpty) {
-        throw FormatException(
-            "The country code should be 2 captical letter in a single string",
-            invalidCode.toSet());
-      }
-
-      _customRegion = Set<String>.from(customRegion).difference(_countryCode);
+      _customRegionApplier(customRegion);
     } else {
       _customRegion = <String>{};
     }
@@ -109,7 +137,7 @@ final class IntlScriptRecognizer {
       throw ArgumentError(
           "The Locale object must provide script code and do not apply country code.");
     } else if (cloneAC.values.any(
-        (element) => !{..._countryCode, ..._customRegion}.contains(element))) {
+        (element) => !_countryCode.union(_customRegion).contains(element))) {
       throw ArgumentError(
           "At least one of the country codes is invalid and unable to resolved.");
     }
@@ -173,6 +201,23 @@ final class IntlScriptRecognizer {
   /// Perform [resolve] from [Localizations.maybeLocaleOf].
   String? resolveFromContext(BuildContext context) {
     return resolve(Localizations.maybeLocaleOf(context));
+  }
+}
+
+/// [IntlScriptRecognizer] for delicated mode.
+final class _DelicatedIntlScriptRecognizer extends IntlScriptRecognizer {
+  /// Construct a new recognizer.
+  _DelicatedIntlScriptRecognizer({Set<String> customRegion = const <String>{}})
+      : super._() {
+    if (customRegion.isNotEmpty) {
+      _customRegionApplier(customRegion);
+    }
+  }
+
+  /// This feature is disabled for delicated mode.
+  @override
+  void applyCustomRegion(Set<String>? customRegion) {
+    throw UnsupportedError("This feature is disabled for delicated mode");
   }
 }
 
