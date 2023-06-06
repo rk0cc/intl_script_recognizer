@@ -50,7 +50,7 @@ final class IntlScriptRecognizer {
   ///
   /// This method should be called after invoking [IntlScriptRecognizer.new]
   /// and throws [StateError] if no instance created yet.
-  /// 
+  ///
   /// It only affected from [IntlScriptRecognizer.new]. And any from
   /// [IntlScriptRecognizer.delicated] will no affected since they no
   /// longer store instance once they constructed.
