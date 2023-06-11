@@ -1,3 +1,7 @@
+## 2.3.1
+
+* Fix the custom country code still can be assign after the new custom one does not contains.
+
 ## 2.3.0
 
 * Added delicated constructor which does not store instance.
