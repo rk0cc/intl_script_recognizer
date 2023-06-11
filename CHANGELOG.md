@@ -1,6 +1,7 @@
 ## 2.3.1
 
 * Fix the custom country code still can be assign after the new custom one does not contains.
+* Defined minimum version constraint of `intl`
 
 ## 2.3.0
 
