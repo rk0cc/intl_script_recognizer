@@ -107,7 +107,7 @@ final class IntlScriptRecognizer {
   ///
   /// This method does not allows for [IntlScriptRecognizer.delicated] to prevent unwanted
   /// modification that [UnsupportedError] will be thrown if called.
-  /// 
+  ///
   /// If the [customRegion] no longer contains the previous custom country code,
   /// those will be removed if they [assign] before.
   void applyCustomRegion(Set<String>? customRegion) {
@@ -122,7 +122,8 @@ final class IntlScriptRecognizer {
       _customRegion = <String>{};
     }
 
-    _localCountryMapper.removeWhere((key, value) => !_availableRegion.contains(value));
+    _localCountryMapper
+        .removeWhere((key, value) => !_availableRegion.contains(value));
   }
 
   /// Assign the [Map] of [applyContent] which contains [Locale] with script code
@@ -143,8 +144,8 @@ final class IntlScriptRecognizer {
         element.countryCode != null || element.scriptCode == null)) {
       throw ArgumentError(
           "The Locale object must provide script code and do not apply country code.");
-    } else if (cloneAC.values.any(
-        (element) => !_availableRegion.contains(element))) {
+    } else if (cloneAC.values
+        .any((element) => !_availableRegion.contains(element))) {
       throw ArgumentError(
           "At least one of the country codes is invalid and unable to resolved.");
     }
